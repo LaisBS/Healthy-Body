@@ -1,0 +1,2000 @@
+openapi: 3.0.3
+info:
+  title: HealthyBody API - Python
+  version: 1.0.0
+  description: This is an application to facilitate the management of your gym.
+paths:
+  /api/class/:
+    get:
+      operationId: api_class_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListClass'
+          description: ''
+    post:
+      operationId: api_class_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostClass'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PostClass'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PostClass'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostClass'
+          description: ''
+  /api/class/{class_id}/:
+    get:
+      operationId: api_class_retrieve
+      parameters:
+      - in: path
+        name: class_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this class.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListClass'
+          description: ''
+    delete:
+      operationId: api_class_destroy
+      parameters:
+      - in: path
+        name: class_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this class.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/customer/private/:
+    get:
+      operationId: api_customer_private_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Private'
+          description: ''
+    post:
+      operationId: api_customer_private_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Private'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Private'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Private'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Private'
+          description: ''
+  /api/customers/:
+    get:
+      operationId: api_customers_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+          description: ''
+    post:
+      operationId: api_customers_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Customer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+  /api/customers/{id}/:
+    get:
+      operationId: api_customers_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this customer.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDetail'
+          description: ''
+    put:
+      operationId: api_customers_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this customer.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomerDetail'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDetail'
+          description: ''
+    patch:
+      operationId: api_customers_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this customer.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomerDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomerDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomerDetail'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDetail'
+          description: ''
+    delete:
+      operationId: api_customers_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this customer.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/login/:
+    post:
+      operationId: api_login_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: ''
+  /api/modalities/:
+    get:
+      operationId: api_modalities_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Modality'
+          description: ''
+    post:
+      operationId: api_modalities_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Modality'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Modality'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Modality'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Modality'
+          description: ''
+  /api/modalities/{modality_id}/:
+    get:
+      operationId: api_modalities_retrieve
+      parameters:
+      - in: path
+        name: modality_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this modality.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Modality'
+          description: ''
+    put:
+      operationId: api_modalities_update
+      parameters:
+      - in: path
+        name: modality_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this modality.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Modality'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Modality'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Modality'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Modality'
+          description: ''
+    patch:
+      operationId: api_modalities_partial_update
+      parameters:
+      - in: path
+        name: modality_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this modality.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedModality'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedModality'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedModality'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Modality'
+          description: ''
+    delete:
+      operationId: api_modalities_destroy
+      parameters:
+      - in: path
+        name: modality_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this modality.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/personal/:
+    get:
+      operationId: api_personal_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonalAll'
+          description: ''
+    post:
+      operationId: api_personal_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonalAll'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PersonalAll'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PersonalAll'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalAll'
+          description: ''
+  /api/personal/{personal_id}/:
+    get:
+      operationId: api_personal_retrieve
+      parameters:
+      - in: path
+        name: personal_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this personal.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalAll'
+          description: ''
+    put:
+      operationId: api_personal_update
+      parameters:
+      - in: path
+        name: personal_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this personal.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonalAll'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PersonalAll'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PersonalAll'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalAll'
+          description: ''
+    patch:
+      operationId: api_personal_partial_update
+      parameters:
+      - in: path
+        name: personal_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this personal.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPersonalAll'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPersonalAll'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPersonalAll'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalAll'
+          description: ''
+    delete:
+      operationId: api_personal_destroy
+      parameters:
+      - in: path
+        name: personal_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this personal.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/personal/private/:
+    get:
+      operationId: api_personal_private_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Private'
+          description: ''
+  /api/plan/:
+    get:
+      operationId: api_plan_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Plan'
+          description: ''
+    post:
+      operationId: api_plan_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plan'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Plan'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Plan'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+          description: ''
+  /api/plan/{id}/:
+    get:
+      operationId: api_plan_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this plan.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+          description: ''
+    put:
+      operationId: api_plan_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this plan.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plan'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Plan'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Plan'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+          description: ''
+    patch:
+      operationId: api_plan_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this plan.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPlan'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPlan'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPlan'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+          description: ''
+    delete:
+      operationId: api_plan_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this plan.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/private_training/:
+    get:
+      operationId: api_private_training_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Private'
+          description: ''
+  /api/private_training/{training_id}:
+    get:
+      operationId: api_private_training_retrieve
+      parameters:
+      - in: path
+        name: training_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Private'
+          description: ''
+    put:
+      operationId: api_private_training_update
+      parameters:
+      - in: path
+        name: training_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Private'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Private'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Private'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Private'
+          description: ''
+    patch:
+      operationId: api_private_training_partial_update
+      parameters:
+      - in: path
+        name: training_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPrivate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPrivate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPrivate'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Private'
+          description: ''
+    delete:
+      operationId: api_private_training_destroy
+      parameters:
+      - in: path
+        name: training_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/teacher/:
+    get:
+      operationId: api_teacher_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Teachers'
+          description: ''
+    post:
+      operationId: api_teacher_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Teachers'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Teachers'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Teachers'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teachers'
+          description: ''
+  /api/teacher/{teacher_id}/:
+    get:
+      operationId: api_teacher_retrieve
+      parameters:
+      - in: path
+        name: teacher_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this teacher.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teachers'
+          description: ''
+    put:
+      operationId: api_teacher_update
+      parameters:
+      - in: path
+        name: teacher_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this teacher.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Teachers'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Teachers'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Teachers'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teachers'
+          description: ''
+    patch:
+      operationId: api_teacher_partial_update
+      parameters:
+      - in: path
+        name: teacher_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this teacher.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTeachers'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTeachers'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTeachers'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teachers'
+          description: ''
+  /api/trains/:
+    get:
+      operationId: api_trains_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrainGet'
+          description: ''
+    post:
+      operationId: api_trains_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Train'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Train'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Train'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Train'
+          description: ''
+  /api/trains/{customer_id}/customer/:
+    get:
+      operationId: api_trains_customer_list
+      parameters:
+      - in: path
+        name: customer_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this trains.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrainGet'
+          description: ''
+    post:
+      operationId: api_trains_customer_create
+      parameters:
+      - in: path
+        name: customer_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this trains.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainGet'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TrainGet'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TrainGet'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainGet'
+          description: ''
+  /api/trains/{train_id}/:
+    get:
+      operationId: api_trains_retrieve
+      parameters:
+      - in: path
+        name: train_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this trains.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainGet'
+          description: ''
+    put:
+      operationId: api_trains_update
+      parameters:
+      - in: path
+        name: train_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this trains.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainGet'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TrainGet'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TrainGet'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainGet'
+          description: ''
+    patch:
+      operationId: api_trains_partial_update
+      parameters:
+      - in: path
+        name: train_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this trains.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTrainGet'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTrainGet'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTrainGet'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainGet'
+          description: ''
+    delete:
+      operationId: api_trains_destroy
+      parameters:
+      - in: path
+        name: train_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this trains.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+components:
+  schemas:
+    AuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        token:
+          type: string
+          readOnly: true
+      required:
+      - password
+      - token
+      - username
+    ClassModality:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - name
+    ClassTeachers:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/GeneralUser'
+      required:
+      - user
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user:
+          $ref: '#/components/schemas/User'
+        plan:
+          allOf:
+          - $ref: '#/components/schemas/Plan'
+          readOnly: true
+        plan_id:
+          type: string
+          format: uuid
+          writeOnly: true
+      required:
+      - id
+      - plan
+      - plan_id
+      - user
+    CustomerDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user:
+          $ref: '#/components/schemas/User'
+        plan:
+          allOf:
+          - $ref: '#/components/schemas/Plan'
+          readOnly: true
+        plan_id:
+          type: string
+          format: uuid
+          writeOnly: true
+      required:
+      - id
+      - plan
+      - plan_id
+      - user
+    CustomerSerializerPT:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/GeneralUser'
+      required:
+      - user
+    GeneralCustomer:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/GeneralUser'
+      required:
+      - user
+    GeneralUser:
+      type: object
+      properties:
+        full_name:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 127
+        phone:
+          type: string
+          maxLength: 20
+      required:
+      - email
+      - full_name
+      - phone
+    ListClass:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        teacher:
+          allOf:
+          - $ref: '#/components/schemas/ClassTeachers'
+          readOnly: true
+        modality:
+          allOf:
+          - $ref: '#/components/schemas/ClassModality'
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        schedule:
+          type: array
+          items:
+            type: string
+            maxLength: 20
+        hour:
+          type: string
+          format: time
+        duration:
+          type: string
+          maxLength: 20
+        capacity:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+      required:
+      - capacity
+      - duration
+      - hour
+      - id
+      - modality
+      - name
+      - schedule
+      - teacher
+    Modality:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        teacher:
+          allOf:
+          - $ref: '#/components/schemas/ModalityTeachers'
+          readOnly: true
+        teacher_id:
+          type: string
+          format: uuid
+          writeOnly: true
+      required:
+      - id
+      - name
+      - teacher
+      - teacher_id
+    ModalityTeachers:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/GeneralUser'
+      required:
+      - user
+    PatchedCustomerDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user:
+          $ref: '#/components/schemas/User'
+        plan:
+          allOf:
+          - $ref: '#/components/schemas/Plan'
+          readOnly: true
+        plan_id:
+          type: string
+          format: uuid
+          writeOnly: true
+    PatchedModality:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        teacher:
+          allOf:
+          - $ref: '#/components/schemas/ModalityTeachers'
+          readOnly: true
+        teacher_id:
+          type: string
+          format: uuid
+          writeOnly: true
+    PatchedPersonalAll:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user:
+          $ref: '#/components/schemas/User'
+        check_in:
+          type: string
+          format: time
+        check_out:
+          type: string
+          format: time
+    PatchedPlan:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 255
+        tier:
+          $ref: '#/components/schemas/TierEnum'
+        price:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        is_active:
+          type: boolean
+    PatchedPrivate:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        customer:
+          allOf:
+          - $ref: '#/components/schemas/CustomerSerializerPT'
+          readOnly: true
+        personal:
+          allOf:
+          - $ref: '#/components/schemas/Personal'
+          readOnly: true
+        personal_id:
+          type: string
+          format: uuid
+          writeOnly: true
+        date:
+          type: string
+          format: date
+        hour:
+          type: string
+          format: time
+        update_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedTeachers:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user:
+          $ref: '#/components/schemas/User'
+        modalities:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeacherModality'
+          readOnly: true
+    PatchedTrainGet:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        customer:
+          allOf:
+          - $ref: '#/components/schemas/GeneralCustomer'
+          readOnly: true
+        duration:
+          type: string
+          format: time
+        exercises:
+          type: array
+          items:
+            type: string
+            maxLength: 300
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        renovation_at:
+          type: string
+          format: date
+    Personal:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user:
+          $ref: '#/components/schemas/GeneralUser'
+        check_in:
+          type: string
+          format: time
+          readOnly: true
+        check_out:
+          type: string
+          format: time
+          readOnly: true
+      required:
+      - check_in
+      - check_out
+      - id
+      - user
+    PersonalAll:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user:
+          $ref: '#/components/schemas/User'
+        check_in:
+          type: string
+          format: time
+        check_out:
+          type: string
+          format: time
+      required:
+      - check_in
+      - check_out
+      - id
+      - user
+    Plan:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 255
+        tier:
+          $ref: '#/components/schemas/TierEnum'
+        price:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        is_active:
+          type: boolean
+      required:
+      - description
+      - id
+      - name
+      - price
+    PostClass:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        teacher:
+          allOf:
+          - $ref: '#/components/schemas/ClassTeachers'
+          readOnly: true
+        modality:
+          allOf:
+          - $ref: '#/components/schemas/ClassModality'
+          readOnly: true
+        modality_id:
+          type: string
+          format: uuid
+          writeOnly: true
+        name:
+          type: string
+          maxLength: 50
+        schedule:
+          type: array
+          items:
+            type: string
+            maxLength: 20
+        hour:
+          type: string
+          format: time
+        duration:
+          type: string
+          maxLength: 20
+        capacity:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+      required:
+      - capacity
+      - duration
+      - hour
+      - id
+      - modality
+      - modality_id
+      - name
+      - schedule
+      - teacher
+    Private:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        customer:
+          allOf:
+          - $ref: '#/components/schemas/CustomerSerializerPT'
+          readOnly: true
+        personal:
+          allOf:
+          - $ref: '#/components/schemas/Personal'
+          readOnly: true
+        personal_id:
+          type: string
+          format: uuid
+          writeOnly: true
+        date:
+          type: string
+          format: date
+        hour:
+          type: string
+          format: time
+        update_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - customer
+      - date
+      - hour
+      - id
+      - personal
+      - personal_id
+      - update_at
+    TeacherModality:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+      required:
+      - id
+      - name
+    Teachers:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user:
+          $ref: '#/components/schemas/User'
+        modalities:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeacherModality'
+          readOnly: true
+      required:
+      - id
+      - modalities
+      - user
+    TierEnum:
+      enum:
+      - Bronze
+      - Prata
+      - Ouro
+      - Não informado
+      type: string
+    Train:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        customer_id:
+          type: string
+          format: uuid
+          writeOnly: true
+        customer:
+          allOf:
+          - $ref: '#/components/schemas/Customer'
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        duration:
+          type: string
+          format: time
+        exercises:
+          type: array
+          items:
+            type: string
+            maxLength: 300
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        renovation_at:
+          type: string
+          format: date
+      required:
+      - created_at
+      - customer
+      - customer_id
+      - duration
+      - exercises
+      - id
+      - name
+      - renovation_at
+      - updated_at
+    TrainGet:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        customer:
+          allOf:
+          - $ref: '#/components/schemas/GeneralCustomer'
+          readOnly: true
+        duration:
+          type: string
+          format: time
+        exercises:
+          type: array
+          items:
+            type: string
+            maxLength: 300
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+        updated_at:
+          type: string
+          format: date
+          readOnly: true
+        renovation_at:
+          type: string
+          format: date
+      required:
+      - created_at
+      - customer
+      - duration
+      - exercises
+      - id
+      - name
+      - renovation_at
+      - updated_at
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+          maxLength: 25
+        first_name:
+          type: string
+          maxLength: 50
+        last_name:
+          type: string
+          maxLength: 50
+        phone:
+          type: string
+          maxLength: 20
+        birthdate:
+          type: string
+          format: date
+        is_active:
+          type: boolean
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 100
+        email:
+          type: string
+          format: email
+          maxLength: 127
+      required:
+      - birthdate
+      - email
+      - first_name
+      - last_name
+      - password
+      - phone
+      - username
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
